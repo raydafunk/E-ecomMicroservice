@@ -8,4 +8,8 @@
     <DockerfileContext>..\..\..\..\ecomshop-mircoservices</DockerfileContext>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
 </Project>
