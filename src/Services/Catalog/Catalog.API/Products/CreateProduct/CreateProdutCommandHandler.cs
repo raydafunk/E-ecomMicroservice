@@ -1,21 +1,15 @@
-﻿using Catalog.API.Models;
-using CommonOperations.CQRS;
-
+﻿
 namespace Catalog.API.Products.CreateProduct
 {
 
     public record CreateProductCommand(string Name, List<string> Category,string Description,string ImageFile,decimal Price) 
         : ICommand<CreateProductResult>;
     public record CreateProductResult(Guid Id);
-    internal class CreateProdutCommandHandler : 
-        ICommandHandler<CreateProductCommand, CreateProductResult>
+    internal class CreateProdutCommandHandler (IDocumentSession session)
+        : ICommandHandler<CreateProductCommand, CreateProductResult>
     {
         public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
         {
-   
-            // save the database 
-            // return the product result 
-
             var product = new Product
             {
                 Name = command.Name,
@@ -24,10 +18,10 @@ namespace Catalog.API.Products.CreateProduct
                 ImageFile = command.ImageFile,
                 Price = command.Price,
             };
-
-            //Todo
-            // save the database 
-            return new CreateProductResult(Guid.NewGuid());
+            session.Store(product);
+            await session.SaveChangesAsync(cancellationToken); 
+            
+            return new CreateProductResult(product.Id);
         }
     }
 }
