@@ -2,7 +2,7 @@
 namespace Catalog.API.Products.DeleteProduct;
 public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
 
-public record DeleteProductResult(bool IsSccuess );
+public record DeleteProductResult(bool IsSuccess);
 internal class DeleteProductCommandHandler(IDocumentSession session, ILogger logger)
     : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {
