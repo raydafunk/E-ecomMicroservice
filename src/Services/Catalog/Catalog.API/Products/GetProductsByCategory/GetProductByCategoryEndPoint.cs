@@ -6,12 +6,12 @@ public class GetProductByCategoryEndPoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/product/category/{category}", async (string category, ISender sender) =>
+        app.MapGet("/products/category/{category}", async (string category, ISender sender) =>
         {
             var result = await sender.Send( new GetProductByCategoryQuery(category));
 
-            var respone = result.Adapt<GetProductByCatagoryResponse>();
-            return Results.Ok(respone);
+            var response = result.Adapt<GetProductByCatagoryResponse>();
+            return Results.Ok(response);
         })
           .WithName("GetProductByCategory")
           .Produces<GetProductByCatagoryResponse>(StatusCodes.Status200OK)

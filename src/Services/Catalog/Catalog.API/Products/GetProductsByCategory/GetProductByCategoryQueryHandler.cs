@@ -10,10 +10,10 @@ internal class GetProductByCategoryQueryHandler(IDocumentSession session, ILogge
     {
         logger.LogInformation("GetProductsByCatagoryQueryHandler.handle called with {@Query}", query);
         
-        var produts = await session.Query<Product>()
+        var products = await session.Query<Product>()
             .Where(p => p.Category.Contains(query.Category))
             .ToListAsync(cancellationToken);
 
-        return  new GetByProductByCategoryResult(produts);
+        return  new GetByProductByCategoryResult(products);
     }
 }
