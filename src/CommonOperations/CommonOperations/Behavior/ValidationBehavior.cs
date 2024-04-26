@@ -5,7 +5,7 @@ using MediatR;
 namespace CommonOperations.Behavior
 {
     public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
-        : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TRequest>
+        : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TResponse>
     {
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
@@ -21,7 +21,7 @@ namespace CommonOperations.Behavior
             if (failuers.Any())
                 throw new ValidationException(failuers);
 
-            return await next();    
+            return await next();
         }
     }
 }
