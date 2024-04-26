@@ -6,4 +6,4 @@ global using CommonOperations.CQRS;
 global using Marten;
 global using Catalog.API.Excceptions;
 global using FluentValidation;
-
+ global using CommonOperations.Behavior;
