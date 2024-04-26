@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to  the container
@@ -21,5 +24,31 @@ var app = builder.Build();
 
 // Configure the Http Request pipeline
 app.MapCarter();
+
+app.UseExceptionHandler(exceptionHandlerApp =>
+{
+    exceptionHandlerApp.Run(async context => 
+    {
+
+        var exepction = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+        if (exepction == null)
+        {
+            return;
+        }
+        var problemDetails = new ProblemDetails
+        {
+            Title = exepction.Message,
+            Status = StatusCodes.Status500InternalServerError,
+            Detail = exepction.StackTrace
+        };
+        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+        logger.LogError(exepction, exepction.Message);
+
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "application/problem+json";
+
+        await context.Response.WriteAsJsonAsync(problemDetails);
+    });
+});
 
 app.Run();
