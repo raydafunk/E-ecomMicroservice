@@ -31,7 +31,7 @@ internal class UpdateProductCommandHandler
 
         if (products == null) 
         {
-            throw new ProductNotFoundExpection();
+            throw new ProductNotFoundExpection(command.Id);
         }
         products.Name = command.Name;
         products.Category = command.Category;

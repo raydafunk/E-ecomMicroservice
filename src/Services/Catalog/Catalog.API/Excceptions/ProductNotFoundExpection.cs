@@ -1,8 +1,10 @@
-﻿namespace Catalog.API.Excceptions
+﻿using CommonOperations.Execeptions;
+
+namespace Catalog.API.Excceptions
 {
-    public class ProductNotFoundExpection : Exception
+    public class ProductNotFoundExpection : NotFoundExecption
     {
-        public ProductNotFoundExpection() : base("Product not Found!") 
+        public ProductNotFoundExpection(Guid Id) : base("Product", Id) 
         {
                 
         }
