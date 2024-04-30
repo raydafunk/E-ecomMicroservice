@@ -9,3 +9,4 @@ global using FluentValidation;
 global using CommonOperations.Behavior;
 global using CommonOperations.Handler;
 global using Catalog.API.Data;
+global using Marten.Pagination;
