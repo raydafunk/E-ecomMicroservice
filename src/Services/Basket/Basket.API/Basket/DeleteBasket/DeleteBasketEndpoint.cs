@@ -4,7 +4,7 @@ using Basket.API.Basket.GetBasket;
 namespace Basket.API.Basket.DeleteBasket;
 
 //public record DeleteBasketRequest(string Username);
-public record DeleteBasketResponse(bool isSuccess);
+public record DeleteBasketResponse(bool IsSuccess);
 public class DeleteBasketEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
