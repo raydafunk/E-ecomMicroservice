@@ -13,10 +13,10 @@ public class StoreBasketEndPoint : ICarterModule
     {
         app.MapPost("/basket", async (StoreBasketRequest request, ISender sender) =>
         {
-            var command  = request.Adapt<StoreBasektCommand>();
+            var command = request.Adapt<StoreBasektCommand>();
 
             var result = await sender.Send(command);
-             var response = result.Adapt<StoreBasketResponse>();
+            var response = result.Adapt<StoreBasketResponse>();
 
             return Results.Created($"/basket{response.UserName}", response);
         })
@@ -24,6 +24,6 @@ public class StoreBasketEndPoint : ICarterModule
              .Produces<StoreBasketResponse>(StatusCodes.Status201Created)
              .ProducesProblem(StatusCodes.Status400BadRequest)
              .WithSummary("Create Product")
-             .WithDescription("Create Product"); ; ;
+             .WithDescription("Create Product");
     }
 }
