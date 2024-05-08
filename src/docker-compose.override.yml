@@ -13,7 +13,7 @@ services:
     volumes:
       - postgres_catalog:/var/lib/postgresql/data/
 
-   Basketdb:
+   basketdb:
     container_name: basketdb
     environment:
       - POSTGRES_USER=postgres
