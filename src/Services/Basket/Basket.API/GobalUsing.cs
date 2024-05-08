@@ -8,3 +8,4 @@ global using CommonOperations.Behavior;
 global using  Marten;
 global using CommonOperations.Execeptions;
 global using Basket.API.Execptions;
+global using Basket.API.Data;
