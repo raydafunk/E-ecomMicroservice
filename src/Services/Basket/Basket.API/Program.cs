@@ -21,7 +21,7 @@ builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 
 builder.Services.AddStackExchangeRedisCache(opitons =>
 {
-    opitons.Configuration = builder.Configuration.GetConnectionString("Reddis");
+    opitons.Configuration = builder.Configuration.GetConnectionString("Redis");
 });
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
