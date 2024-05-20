@@ -7,31 +7,40 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Discount.Grpc.Services
 {
-    public class DiscountService 
-        (DiscountContext discountDbContext , ILogger<DiscountService> logger)
+    public class DiscountService
+        (DiscountContext discountDbContext, ILogger<DiscountService> logger)
         : DiscountProtoService.DiscountProtoServiceBase
     {
         public override async Task<CouponModel> GetDiscount(GetDiscountRequest request, ServerCallContext context)
         {
-           var couponObject = await discountDbContext
-                .Coupons
-                .FirstOrDefaultAsync(x=> x.ProductName == request.ProductName); 
+            var couponObject = await discountDbContext
+                 .Coupons
+                 .FirstOrDefaultAsync(x => x.ProductName == request.ProductName);
 
-            if(couponObject is null)
-                couponObject = new Coupon { ProductName = "No Discount", Amount =0, Description = "No Discount Desc"};
+            if (couponObject is null)
+                couponObject = new Coupon { ProductName = "No Discount", Amount = 0, Description = "No Discount Desc" };
             logger.LogInformation("Discount is retrieved for ProductName : {productName}, Amount : {amount}", couponObject.ProductName, couponObject.Amount);
 
-            var couponModel =  couponObject.Adapt<CouponModel>();
+            var couponModel = couponObject.Adapt<CouponModel>();
             return couponModel;
         }
-        public override Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> CreateDiscount(CreateDiscountRequest request, ServerCallContext context)
         {
-            return base.CreateDiscount(request, context);   
+           var couponobj = request.Coupon.Adapt<Coupon>();
+            if (couponobj is null)
+                throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid request"));
+
+            discountDbContext.Add(couponobj);
+            await discountDbContext.SaveChangesAsync();
+
+            logger.LogInformation("Discount is sucessfull created. ProductName: {ProductName}", couponobj.ProductName);
+            var couponModel = couponobj.Adapt<CouponModel>();
+            return couponModel;
         }
 
         public override Task<CouponModel> UpdateDiscount(UpdateDiscountRequest request, ServerCallContext context)
         {
-            return base.UpdateDiscount(request, context);   
+            return base.UpdateDiscount(request, context);
         }
         public override Task<DeleteDiscountResponse> DeleteDiscount(DeleteDiscountRequest request, ServerCallContext context)
         {
