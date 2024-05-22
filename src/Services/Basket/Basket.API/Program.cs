@@ -33,7 +33,7 @@ builder.Services.AddStackExchangeRedisCache(opitons =>
 //Grpc Services
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(opitons =>
 {
-    opitons.Address = new Uri(builder.Configuration["GrpcSettings:Discount"]!);
+    opitons.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
 });
 //Cross-Cutting Services
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
