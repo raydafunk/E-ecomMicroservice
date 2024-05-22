@@ -34,7 +34,16 @@ builder.Services.AddStackExchangeRedisCache(opitons =>
 builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(opitons =>
 {
     opitons.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
-});
+})
+ .ConfigurePrimaryHttpMessageHandler(() => // for development purpress not production
+ {
+     var handler = new HttpClientHandler
+     {
+         ServerCertificateCustomValidationCallback =
+         HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+     };
+     return handler;
+ });
 //Cross-Cutting Services
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
