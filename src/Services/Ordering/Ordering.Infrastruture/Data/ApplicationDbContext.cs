@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Ordering.Domain.Models;
-using System.Reflection;
+﻿global using Microsoft.EntityFrameworkCore;
+global using Ordering.Domain.Models;
+global using System.Reflection;
 namespace Ordering.Infrastruture.Data
 {
     public class ApplicationDbContext : DbContext
@@ -12,7 +12,7 @@ namespace Ordering.Infrastruture.Data
         public DbSet<Customer> Customers => Set<Customer>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Order> Orders => Set<Order>();
-        public DbSet<OrderItem> orderItems => Set<OrderItem>();
+        public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
