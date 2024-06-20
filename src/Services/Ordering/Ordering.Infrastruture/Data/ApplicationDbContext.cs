@@ -1,9 +1,10 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 global using Ordering.Domain.Models;
 global using System.Reflection;
+using Ordering.Application.Data;
 namespace Ordering.Infrastruture.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)   
         {
