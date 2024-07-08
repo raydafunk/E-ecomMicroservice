@@ -1,10 +1,28 @@
-﻿namespace Ordering.API.EndPoints
+﻿using Ordering.Application.Orders.Commands.DeleteOrder;
+
+namespace Ordering.API.EndPoints
 {
-    //-Accepts the order id as parameter 
-    //-Constructs  a CreateOrderCommand
-    // Sends the Command using MediaTR
-    //- Returns a succces or not found repsone 
-    public class DeleteOrder
+
+
+    public record DeleteOrderResponse(bool IsSucess);
+    public class DeleteOrder : ICarterModule
     {
+        public void AddRoutes(IEndpointRouteBuilder app)
+        {
+            app.Map("/orders/{id}", async (Guid Id, ISender sender) =>
+            {
+                var results = await sender.Send(new DeleteOrderCommand(Id));
+
+                var response = results.Adapt<DeleteOrderResponse>();
+
+                return Results.Ok(response);
+            })
+                .WithName("Delete Order")
+                .Produces<CreateOrderResponse>(StatusCodes.Status201Created)
+                .ProducesProblem(StatusCodes.Status400BadRequest)
+                .ProducesProblem(StatusCodes.Status404NotFound)
+                .WithSummary("Delete Order")
+                .WithDescription("Delete Order");
+        }
     }
 }

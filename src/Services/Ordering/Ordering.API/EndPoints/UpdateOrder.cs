@@ -1,11 +1,8 @@
 ﻿using Ordering.Application.Orders.Commands.CreateOrder;
+using Ordering.Application.Orders.Commands.UpdateOrder;
 
 namespace Ordering.API.EndPoints
 {
-    //-Accepts a UpdateOrderRequest
-    //-Mapps the  request to a CreateOrderCommand
-    //Uses MeidatR to send the command to the Corresponding order
-    //- Returns a sucesss or  error reposne based on the outcome
 
     public record UpdateOrderRequest(OrderDto OrderDto);
     public record UpdateOrderResponse(bool IsSucesss);
@@ -15,7 +12,7 @@ namespace Ordering.API.EndPoints
         {
             app.Map("/orders", async (UpdateOrderRequest request, ISender sender) =>
             {
-                var comand = request.Adapt<UpdateOrderResponse>();
+                var comand = request.Adapt<UpdataOrderCommand>();
 
                 var results = await sender.Send(comand);
 
