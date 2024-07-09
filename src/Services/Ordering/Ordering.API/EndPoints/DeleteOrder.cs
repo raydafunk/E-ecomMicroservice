@@ -18,7 +18,7 @@ namespace Ordering.API.EndPoints
                 return Results.Ok(response);
             })
                 .WithName("Delete Order")
-                .Produces<CreateOrderResponse>(StatusCodes.Status201Created)
+                .Produces<DeleteOrderResponse>(StatusCodes.Status201Created)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status404NotFound)
                 .WithSummary("Delete Order")

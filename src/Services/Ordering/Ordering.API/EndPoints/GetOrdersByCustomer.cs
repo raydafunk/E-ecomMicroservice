@@ -16,7 +16,8 @@ namespace Ordering.API.EndPoints
                 var response = result.Adapt<GetOrdersByCustomerResponse>();
 
                 return Results.Ok(response);
-            }).WithName("GetOrdersByCustomer")
+            })
+                .WithName("GetOrdersByCustomer")
                 .Produces<CreateOrderResponse>(StatusCodes.Status201Created)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status404NotFound)
