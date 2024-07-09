@@ -9,7 +9,7 @@ namespace Ordering.API.EndPoints
     //
 
      public record GetOrderByNameResponse(IEnumerable<OrderDto> OrderDtos);
-    public class GetOrdersByCustomer : ICarterModule
+    public class GetOrdersByName : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
