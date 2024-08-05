@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace Ordering.Application.Orders.Commands.UpdateOrder;
 
-public record UpdataOrderCommand(OrderDto Order) : ICommand<UpdateOrderResult>;
+public record UpdateOrderCommand(OrderDto Order) : ICommand<UpdateOrderResult>;
 
 public record UpdateOrderResult(bool IsSucess);
 
-public class UpdateOrderCommandValidator : AbstractValidator<UpdataOrderCommand>
+public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
 {
     public UpdateOrderCommandValidator()
     {

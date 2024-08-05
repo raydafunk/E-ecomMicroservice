@@ -9,10 +9,13 @@ namespace Ordering.Application.Orders.Commands.DeleteOrder
             var order = await dbContext.Orders
                 .FindAsync([orderId], cancellationToken: cancellationToken);
 
-            if (order != null)
+            if (order is null)
             {
                 throw new OrderNotFoundException(command.OrderId);
             }
+               
+            dbContext.Orders.Remove(order);
+            await dbContext.SaveChangesAsync(cancellationToken);
 
            return new DeleteOrderResult(true);
         }   

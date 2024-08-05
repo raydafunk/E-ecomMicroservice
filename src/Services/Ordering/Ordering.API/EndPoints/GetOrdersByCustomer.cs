@@ -1,4 +1,4 @@
-﻿
+﻿        
 using Ordering.Application.Orders.Queries.GetOrdersByCustomer;
 
 namespace Ordering.API.EndPoints
@@ -13,7 +13,7 @@ namespace Ordering.API.EndPoints
             {
                 var result = await sender.Send(new GetOrdersByCustomerQuery(customerId));
 
-                var response = result.Adapt<GetOrdersByCustomerResponse>();
+                var response = result.Adapt<      GetOrdersByCustomerResponse>();
 
                 return Results.Ok(response);
             })

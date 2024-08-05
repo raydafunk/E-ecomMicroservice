@@ -7,18 +7,18 @@ namespace Ordering.API.EndPoints
     public class CreateOrder : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
-        {
-            app.Map("/orders", async (CreateOrderRequest request, ISender sender) =>
+          {
+            app.MapPost("/orders", async (CreateOrderRequest request, ISender sender) =>
             {
-                var comand = request.Adapt<CreateOrderCommand>();
+                var command = request.Adapt<CreateOrderCommand>();
                 
-                var results = await sender.Send(comand);
+                var results = await sender.Send(command);
 
                 var response = results.Adapt<CreateOrderResponse>();
 
                 return Results.Created($"/orders/{response.Id}", response);
             })
-                .WithName("CreateOrder")
+                .WithName("Create Order")
                 .Produces<CreateOrderResponse>(StatusCodes.Status201Created)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .WithSummary("Create Order")

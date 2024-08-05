@@ -1,18 +1,16 @@
-﻿using Ordering.Application.Orders.Commands.CreateOrder;
-using Ordering.Application.Orders.Commands.UpdateOrder;
-
+﻿using Ordering.Application.Orders.Commands.UpdateOrder;
 namespace Ordering.API.EndPoints
 {
 
-    public record UpdateOrderRequest(OrderDto OrderDto);
+    public record UpdateOrderRequest(OrderDto Order);
     public record UpdateOrderResponse(bool IsSucesss);
     public class UpdateOrder : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.Map("/orders", async (UpdateOrderRequest request, ISender sender) =>
+            app.MapPut("/orders", async (UpdateOrderRequest request, ISender sender) =>
             {
-                var comand = request.Adapt<UpdataOrderCommand>();
+                var comand = request.Adapt<UpdateOrderCommand>();
 
                 var results = await sender.Send(comand);
 

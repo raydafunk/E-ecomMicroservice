@@ -1,4 +1,4 @@
-﻿
+﻿    
 using CommonOperations.Pagination;
 
 namespace Ordering.Application.Orders.Queries.GetOrders

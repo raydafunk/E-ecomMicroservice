@@ -3,12 +3,9 @@ using Ordering.Application.Orders.Queries.GetOrdersByName;
 
 namespace Ordering.API.EndPoints
 {
-    //-Accepts customer ID
-    //-Uses a GetOrdersByCustomerQuery to fetch orders
-    //Return the list of orders for that customners
-    //
 
-     public record GetOrderByNameResponse(IEnumerable<OrderDto> OrderDtos);
+    //public record GetOrdersByNameRequest(string Name);
+    public record GetOrderByNameResponse(IEnumerable<OrderDto> Orders);
     public class GetOrdersByName : ICarterModule
     {
         public void AddRoutes(IEndpointRouteBuilder app)
