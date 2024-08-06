@@ -10,3 +10,4 @@ global using CommonOperations.Execeptions;
 global using Basket.API.Execptions;
 global using Basket.API.Data;
 global using CommonOperations.Handler;
+global using Basket.API.Dtos;
